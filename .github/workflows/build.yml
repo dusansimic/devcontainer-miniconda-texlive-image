@@ -97,4 +97,4 @@ jobs:
           tags: ${{ github.ref_type == 'tag' && steps.tags_versioned.outputs.tags || steps.tags_latest.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            TEXLIVE_VERSION=${{ fromJson(steps.meta.outputs.json).labels['me.dusansimic.experiment-miniconda-texlive-image.texlive'] }}
+            TEXLIVE_VERSION=${{ matrix.version }}
