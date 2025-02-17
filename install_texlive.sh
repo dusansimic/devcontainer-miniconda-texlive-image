@@ -2,12 +2,7 @@
 set -e
 
 TEXLIVE_VERSION="${1:-${TEXLIVE_VERSION}}"
-# TEXLIVE_LATEST_VERSION="2024"
-# TEXLIVE_REPO_URL="ftp://tug.org/texlive/tlnet/tlpkg/texlive.tlpdb"
-# TEXLIVE_REPO_URL="ftp://tug.org/historic/systems/texlive/${TEXLIVE_VERSION}"
-# if [ "$TEXLIVE_VERSION" -lt "${TEXLIVE_LATEST_VERSION}" ]; then
-#   TEXLIVE_REPO_URL="ftp://tug.org/historic/systems/texlive/${TEXLIVE_VERSION}/tlnet-final"
-# fi
+TEXLIVE_LATEST_VERSION="2024"
 
 if [ -z "${TEXLIVE_VERSION}" ]
 then
@@ -28,16 +23,23 @@ tar -xzf install-tl-unx.tar.gz -C tl --strip-components=1
 
 cd /tmp/tl
 
+_OPTS=""
+
+if $TEXLIVE_VERSION -lt $TEXLIVE_LATEST_VERSION
+then
+  TEXLIVE_REPO_URL="ftp://tug.org/historic/systems/texlive/${TEXLIVE_VERSION}/tlnet-final"
+  _OPTS="$_OPTS --repository $TEXLIVE_REPO_URL"
+fi
+
 case "$TEXLIVE_VERSION" in
   2024 | 2023)
-    _OPTS="-no-doc-install -no-src-install"
+    _OPTS="$_OPTS -no-doc-install -no-src-install"
     ;;
   *)
-    _OPTS=""
+    _OPTS="$_OPTS"
     ;;
 esac
 
-# perl ./install-tl -repository "${TEXLIVE_REPO_URL}" -no-interaction ${_OPTS}
 perl ./install-tl -no-interaction ${_OPTS}
 
 cd /tmp
