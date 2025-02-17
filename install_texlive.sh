@@ -25,7 +25,7 @@ cd /tmp/tl
 
 _OPTS=""
 
-if $TEXLIVE_VERSION -lt $TEXLIVE_LATEST_VERSION
+if [ $TEXLIVE_VERSION -lt $TEXLIVE_LATEST_VERSION ]
 then
   TEXLIVE_REPO_URL="ftp://tug.org/historic/systems/texlive/${TEXLIVE_VERSION}/tlnet-final"
   _OPTS="$_OPTS --repository $TEXLIVE_REPO_URL"
