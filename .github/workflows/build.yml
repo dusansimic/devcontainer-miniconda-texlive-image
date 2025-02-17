@@ -47,7 +47,7 @@ jobs:
       packages: write
     strategy:
       matrix:
-        version: [2024]
+        version: [2023, 2024]
     steps:
       - uses: actions/checkout@v4
 
