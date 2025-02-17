@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.ref_type == 'tag'
     outputs:
-      full: ${{ steps }}
-      majorminor: ${{ steps }}
-      major: ${{ steps }}
+      full: ${{ steps.extract-versions.outputs.full }}
+      majorminor: ${{ steps.extract-versions.outputs.majorminor }}
+      major: ${{ steps.extract-versions.outputs.major }}
 
     steps:
       - name: Extract versions
